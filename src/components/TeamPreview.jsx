@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
@@ -19,21 +19,32 @@ const TeamPreview = () => {
 
   const membersSectionRef = useRef(null)
 
+  // Scroll to members section when category changes
+  useEffect(() => {
+    if (selectedCategory && membersSectionRef.current) {
+      // Wait for animation to start rendering
+      const scrollTimeout = setTimeout(() => {
+        const element = membersSectionRef.current
+        if (element) {
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - 120 // Offset for navbar
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
+        }
+      }, 300) // Increased delay to ensure DOM is updated
+      
+      return () => clearTimeout(scrollTimeout)
+    }
+  }, [selectedCategory])
+
   const handleCategoryClick = (categoryId) => {
     if (selectedCategory === categoryId) {
       setSelectedCategory(null)
     } else {
       setSelectedCategory(categoryId)
-      // Scroll to members section after a short delay to allow DOM update
-      setTimeout(() => {
-        if (membersSectionRef.current) {
-          membersSectionRef.current.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start',
-            inline: 'nearest'
-          })
-        }
-      }, 100)
     }
   }
 
@@ -53,7 +64,8 @@ const TeamPreview = () => {
               text="Team & Management"
               variant="h2"
               accentMode="first-last"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-4 break-words"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-4"
+              style={{ whiteSpace: 'nowrap' }}
               motionProps={{
                 initial: { opacity: 0, y: 30 },
                 animate: isInView ? { opacity: 1, y: 0 } : {},

@@ -36,17 +36,17 @@ const ParticleSystem = () => {
 
       reset() {
         this.x = Math.random() * canvas.width
-        // Start particles from below viewport, with extra height for mobile
+        // Start particles from much further below viewport for better visibility
         const isMobileDevice = canvas.width < 768
-        const extraHeight = isMobileDevice ? canvas.height * 0.5 : canvas.height * 0.3
+        const extraHeight = isMobileDevice ? canvas.height * 1.5 : canvas.height * 1.0  // Much more height
         this.y = canvas.height + Math.random() * extraHeight
-        // Make particles larger on mobile for better visibility
+        // Make particles larger for better visibility
         this.size = isMobileDevice 
-          ? Math.random() * 4 + 2  // 2-6px on mobile
-          : Math.random() * 3 + 1  // 1-4px on desktop
-        this.speedY = Math.random() * 0.5 + 0.2
+          ? Math.random() * 5 + 3  // 3-8px on mobile
+          : Math.random() * 4 + 2  // 2-6px on desktop
+        this.speedY = Math.random() * 0.8 + 0.3  // Faster movement
         this.speedX = (Math.random() - 0.5) * 0.5
-        this.opacity = Math.random() * 0.5 + 0.2
+        this.opacity = Math.random() * 0.6 + 0.3  // More visible
         this.color = Math.random() > 0.5 ? '#D4AF37' : '#FF9933' // Gold or Saffron
         this.life = 1
         this.decay = Math.random() * 0.002 + 0.001
@@ -85,11 +85,11 @@ const ParticleSystem = () => {
       }
     }
 
-    // Initialize particles - optimized for mobile visibility
+    // Initialize particles - significantly increased for better visibility
     const isMobile = window.innerWidth < 768
     const particleCount = isMobile 
-      ? Math.min(30, Math.floor((canvas.width * canvas.height) / 25000))  // More particles on mobile
-      : Math.min(50, Math.floor((canvas.width * canvas.height) / 15000))
+      ? Math.min(60, Math.floor((canvas.width * canvas.height) / 15000))  // Much more particles
+      : Math.min(100, Math.floor((canvas.width * canvas.height) / 10000))  // Much more particles
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle())
     }

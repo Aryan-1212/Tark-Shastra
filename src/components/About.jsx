@@ -39,7 +39,8 @@ const About = () => {
               text="About the Hackathon"
               variant="h2"
               accentMode="first-last"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-4 break-words"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-4"
+              style={{ whiteSpace: 'nowrap' }}
               motionProps={{
                 initial: { opacity: 0, y: 30 },
                 animate: isInView ? { opacity: 1, y: 0 } : {},
@@ -58,9 +59,14 @@ const About = () => {
               key={card.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
               whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.2,
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+              }}
               className="bg-charcoal/50 backdrop-blur-sm border border-ancient-gold/30 rounded-xl p-6 sm:p-8 hover:border-ancient-gold/60 transition-hover glow-gold hover:glow-saffron"
             >
               <div className="text-4xl sm:text-5xl mb-4">{card.icon}</div>
