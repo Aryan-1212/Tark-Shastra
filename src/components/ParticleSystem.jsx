@@ -1,7 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const ParticleSystem = () => {
   const canvasRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -27,8 +36,14 @@ const ParticleSystem = () => {
 
       reset() {
         this.x = Math.random() * canvas.width
-        this.y = canvas.height + Math.random() * 100
-        this.size = Math.random() * 3 + 1
+        // Start particles from below viewport, with extra height for mobile
+        const isMobileDevice = canvas.width < 768
+        const extraHeight = isMobileDevice ? canvas.height * 0.5 : canvas.height * 0.3
+        this.y = canvas.height + Math.random() * extraHeight
+        // Make particles larger on mobile for better visibility
+        this.size = isMobileDevice 
+          ? Math.random() * 4 + 2  // 2-6px on mobile
+          : Math.random() * 3 + 1  // 1-4px on desktop
         this.speedY = Math.random() * 0.5 + 0.2
         this.speedX = (Math.random() - 0.5) * 0.5
         this.opacity = Math.random() * 0.5 + 0.2
@@ -46,7 +61,10 @@ const ParticleSystem = () => {
         // Add slight flicker
         this.speedX += (Math.random() - 0.5) * 0.1
 
-        if (this.life <= 0 || this.y < -10) {
+        // Reset when particle goes above viewport or life ends
+        // Use larger threshold on mobile to ensure visibility
+        const resetThreshold = canvas.width < 768 ? -50 : -10
+        if (this.life <= 0 || this.y < resetThreshold) {
           this.reset()
         }
       }
@@ -67,10 +85,10 @@ const ParticleSystem = () => {
       }
     }
 
-    // Initialize particles - reduce on mobile for performance
+    // Initialize particles - optimized for mobile visibility
     const isMobile = window.innerWidth < 768
     const particleCount = isMobile 
-      ? Math.min(20, Math.floor((canvas.width * canvas.height) / 30000))
+      ? Math.min(30, Math.floor((canvas.width * canvas.height) / 25000))  // More particles on mobile
       : Math.min(50, Math.floor((canvas.width * canvas.height) / 15000))
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle())
@@ -100,7 +118,9 @@ const ParticleSystem = () => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ 
+        opacity: isMobile ? 0.8 : 0.6  // More visible on mobile
+      }}
     />
   )
 }

@@ -123,6 +123,71 @@ const ScrollBackground = () => {
             ))}
           </div>
 
+          {/* Temple Statues/Deities Silhouettes */}
+          <div className="absolute inset-0 opacity-25">
+            {/* Left side statue - Guardian/Deity */}
+            <div className="absolute left-[8%] bottom-0 w-24 h-80">
+              <svg viewBox="0 0 100 300" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+                {/* Statue base/platform */}
+                <rect x="30" y="280" width="40" height="20" fill="#D4AF37" opacity="0.6" />
+                {/* Statue body - standing figure */}
+                <ellipse cx="50" cy="200" rx="15" ry="40" fill="#D4AF37" opacity="0.5" />
+                {/* Head */}
+                <circle cx="50" cy="150" r="12" fill="#D4AF37" opacity="0.6" />
+                {/* Crown/Headgear */}
+                <polygon points="50,130 45,120 50,125 55,120" fill="#FF9933" opacity="0.6" />
+                {/* Arms - prayer position */}
+                <ellipse cx="35" cy="180" rx="8" ry="25" fill="#D4AF37" opacity="0.4" transform="rotate(-20 35 180)" />
+                <ellipse cx="65" cy="180" rx="8" ry="25" fill="#D4AF37" opacity="0.4" transform="rotate(20 65 180)" />
+                {/* Decorative aura */}
+                <circle cx="50" cy="150" r="25" fill="none" stroke="#FF9933" strokeWidth="1" opacity="0.3" />
+              </svg>
+            </div>
+
+            {/* Right side statue - Guardian/Deity */}
+            <div className="absolute right-[8%] bottom-0 w-24 h-80">
+              <svg viewBox="0 0 100 300" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+                {/* Statue base/platform */}
+                <rect x="30" y="280" width="40" height="20" fill="#FF9933" opacity="0.6" />
+                {/* Statue body - standing figure */}
+                <ellipse cx="50" cy="200" rx="15" ry="40" fill="#FF9933" opacity="0.5" />
+                {/* Head */}
+                <circle cx="50" cy="150" r="12" fill="#FF9933" opacity="0.6" />
+                {/* Crown/Headgear */}
+                <polygon points="50,130 45,120 50,125 55,120" fill="#D4AF37" opacity="0.6" />
+                {/* Arms - prayer position */}
+                <ellipse cx="35" cy="180" rx="8" ry="25" fill="#FF9933" opacity="0.4" transform="rotate(-20 35 180)" />
+                <ellipse cx="65" cy="180" rx="8" ry="25" fill="#FF9933" opacity="0.4" transform="rotate(20 65 180)" />
+                {/* Decorative aura */}
+                <circle cx="50" cy="150" r="25" fill="none" stroke="#D4AF37" strokeWidth="1" opacity="0.3" />
+              </svg>
+            </div>
+
+            {/* Central decorative statue element */}
+            <div className="absolute left-1/2 bottom-0 w-20 h-60 transform -translate-x-1/2">
+              <svg viewBox="0 0 80 200" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+                {/* Base */}
+                <rect x="25" y="180" width="30" height="20" fill="#D4AF37" opacity="0.5" />
+                {/* Central element - lotus or deity symbol */}
+                <circle cx="40" cy="140" r="20" fill="none" stroke="#D4AF37" strokeWidth="2" opacity="0.6" />
+                <circle cx="40" cy="140" r="12" fill="none" stroke="#FF9933" strokeWidth="1" opacity="0.5" />
+                {/* Petals/rays */}
+                {[...Array(8)].map((_, i) => (
+                  <line
+                    key={i}
+                    x1="40"
+                    y1="140"
+                    x2={40 + 20 * Math.cos((i * Math.PI) / 4)}
+                    y2={140 + 20 * Math.sin((i * Math.PI) / 4)}
+                    stroke="#D4AF37"
+                    strokeWidth="1"
+                    opacity="0.4"
+                  />
+                ))}
+              </svg>
+            </div>
+          </div>
+
           {/* Sanskrit Text Carvings on Walls */}
           <div className="absolute inset-0 opacity-15">
             <div className="absolute left-[20%] top-1/4 text-ancient-gold font-serif text-2xl transform -rotate-90 whitespace-nowrap">
@@ -201,7 +266,7 @@ const ScrollBackground = () => {
             ))}
           </div>
 
-          {/* Temple Silhouettes in Background */}
+          {/* Temple Silhouettes in Background with Gopurams */}
           <div className="absolute bottom-0 left-0 right-0 h-2/5 opacity-35">
             <svg viewBox="0 0 1200 400" className="w-full h-full" preserveAspectRatio="none">
               {/* Temple base */}
@@ -211,23 +276,84 @@ const ScrollBackground = () => {
                 className="text-ancient-gold"
               />
               
-              {/* Temple structures with spires */}
+              {/* Temple structures with spires and gopurams */}
               <rect x="150" y="360" width="60" height="40" fill="currentColor" className="text-ancient-gold" />
               <polygon points="150,360 180,320 210,360" fill="currentColor" className="text-ancient-gold" />
+              {/* Gopuram details */}
+              <rect x="165" y="320" width="30" height="20" fill="currentColor" className="text-saffron" opacity="0.7" />
+              <polygon points="165,320 180,300 195,320" fill="currentColor" className="text-saffron" opacity="0.7" />
               
+              {/* Main temple with elaborate gopuram */}
               <rect x="550" y="310" width="80" height="90" fill="currentColor" className="text-ancient-gold" />
               <polygon points="550,310 590,250 630,310" fill="currentColor" className="text-ancient-gold" />
+              {/* Multi-tiered gopuram */}
               <rect x="570" y="250" width="40" height="60" fill="currentColor" className="text-saffron" />
+              <rect x="575" y="200" width="30" height="50" fill="currentColor" className="text-ancient-gold" opacity="0.8" />
+              <polygon points="575,200 590,170 605,200" fill="currentColor" className="text-ancient-gold" opacity="0.8" />
+              {/* Gopuram decorative elements */}
+              <circle cx="590" cy="185" r="3" fill="currentColor" className="text-saffron" />
+              <circle cx="580" cy="185" r="2" fill="currentColor" className="text-saffron" />
+              <circle cx="600" cy="185" r="2" fill="currentColor" className="text-saffron" />
               
+              {/* Large temple with statue niches */}
               <rect x="950" y="260" width="70" height="140" fill="currentColor" className="text-ancient-gold" />
               <polygon points="950,260 985,200 1020,260" fill="currentColor" className="text-ancient-gold" />
               <rect x="965" y="200" width="30" height="80" fill="currentColor" className="text-saffron" />
+              {/* Statue niches on temple walls */}
+              <rect x="960" y="300" width="15" height="40" fill="currentColor" className="text-charcoal" opacity="0.4" rx="2" />
+              <rect x="1005" y="300" width="15" height="40" fill="currentColor" className="text-charcoal" opacity="0.4" rx="2" />
               
               {/* Temple windows/doors */}
               <rect x="170" y="370" width="20" height="25" fill="currentColor" className="text-charcoal" opacity="0.3" />
               <rect x="580" y="330" width="30" height="50" fill="currentColor" className="text-charcoal" opacity="0.3" />
               <rect x="970" y="300" width="25" height="80" fill="currentColor" className="text-charcoal" opacity="0.3" />
+              
+              {/* Additional temple structures with toranas (decorative arches) */}
+              <path d="M350,360 Q370,340 390,360" fill="none" stroke="currentColor" className="text-ancient-gold" strokeWidth="2" opacity="0.6" />
+              <path d="M750,340 Q770,320 790,340" fill="none" stroke="currentColor" className="text-saffron" strokeWidth="2" opacity="0.6" />
+              <path d="M1050,320 Q1070,300 1090,320" fill="none" stroke="currentColor" className="text-ancient-gold" strokeWidth="2" opacity="0.6" />
             </svg>
+          </div>
+
+          {/* Standing Statues in Scene 2 */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 opacity-30">
+            {/* Left guardian statue */}
+            <div className="absolute left-[12%] bottom-0 w-16 h-64">
+              <svg viewBox="0 0 80 250" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+                {/* Base */}
+                <rect x="20" y="230" width="40" height="20" fill="#D4AF37" opacity="0.6" />
+                {/* Body */}
+                <ellipse cx="40" cy="160" rx="12" ry="35" fill="#D4AF37" opacity="0.5" />
+                {/* Head */}
+                <circle cx="40" cy="120" r="10" fill="#D4AF37" opacity="0.6" />
+                {/* Crown */}
+                <polygon points="40,105 35,95 40,100 45,95" fill="#FF9933" opacity="0.7" />
+                {/* Arms */}
+                <ellipse cx="28" cy="145" rx="6" ry="20" fill="#D4AF37" opacity="0.4" transform="rotate(-25 28 145)" />
+                <ellipse cx="52" cy="145" rx="6" ry="20" fill="#D4AF37" opacity="0.4" transform="rotate(25 52 145)" />
+                {/* Decorative elements */}
+                <circle cx="40" cy="120" r="18" fill="none" stroke="#FF9933" strokeWidth="1" opacity="0.3" />
+              </svg>
+            </div>
+
+            {/* Right guardian statue */}
+            <div className="absolute right-[12%] bottom-0 w-16 h-64">
+              <svg viewBox="0 0 80 250" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+                {/* Base */}
+                <rect x="20" y="230" width="40" height="20" fill="#FF9933" opacity="0.6" />
+                {/* Body */}
+                <ellipse cx="40" cy="160" rx="12" ry="35" fill="#FF9933" opacity="0.5" />
+                {/* Head */}
+                <circle cx="40" cy="120" r="10" fill="#FF9933" opacity="0.6" />
+                {/* Crown */}
+                <polygon points="40,105 35,95 40,100 45,95" fill="#D4AF37" opacity="0.7" />
+                {/* Arms */}
+                <ellipse cx="28" cy="145" rx="6" ry="20" fill="#FF9933" opacity="0.4" transform="rotate(-25 28 145)" />
+                <ellipse cx="52" cy="145" rx="6" ry="20" fill="#FF9933" opacity="0.4" transform="rotate(25 52 145)" />
+                {/* Decorative elements */}
+                <circle cx="40" cy="120" r="18" fill="none" stroke="#D4AF37" strokeWidth="1" opacity="0.3" />
+              </svg>
+            </div>
           </div>
 
           {/* Animated sun/dawn effect */}
@@ -331,6 +457,35 @@ const ScrollBackground = () => {
                 ॐ
               </div>
             ))}
+          </div>
+
+          {/* Stone Statues in niches on walls */}
+          <div className="absolute inset-0 opacity-25">
+            {/* Left wall statue niche */}
+            <div className="absolute left-[8%] top-1/3 w-20 h-40">
+              <svg viewBox="0 0 100 200" className="w-full h-full">
+                {/* Niche arch */}
+                <path d="M10,180 Q50,140 90,180 L90,200 L10,200 Z" fill="#1a1a1a" opacity="0.5" />
+                <path d="M10,180 Q50,140 90,180" fill="none" stroke="#D4AF37" strokeWidth="2" opacity="0.6" />
+                {/* Statue inside niche */}
+                <ellipse cx="50" cy="150" rx="8" ry="25" fill="#D4AF37" opacity="0.5" />
+                <circle cx="50" cy="120" r="7" fill="#D4AF37" opacity="0.6" />
+                <polygon points="50,110 47,105 50,108 53,105" fill="#FF9933" opacity="0.6" />
+              </svg>
+            </div>
+
+            {/* Right wall statue niche */}
+            <div className="absolute right-[8%] top-1/2 w-20 h-40">
+              <svg viewBox="0 0 100 200" className="w-full h-full">
+                {/* Niche arch */}
+                <path d="M10,180 Q50,140 90,180 L90,200 L10,200 Z" fill="#1a1a1a" opacity="0.5" />
+                <path d="M10,180 Q50,140 90,180" fill="none" stroke="#FF9933" strokeWidth="2" opacity="0.6" />
+                {/* Statue inside niche */}
+                <ellipse cx="50" cy="150" rx="8" ry="25" fill="#FF9933" opacity="0.5" />
+                <circle cx="50" cy="120" r="7" fill="#FF9933" opacity="0.6" />
+                <polygon points="50,110 47,105 50,108 53,105" fill="#D4AF37" opacity="0.6" />
+              </svg>
+            </div>
           </div>
         </div>
       </motion.div>
