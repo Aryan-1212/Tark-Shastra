@@ -27,17 +27,19 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <AncientHeading
-            text="Tark Shastra"
-            variant="h1"
-            accentMode="first-last"
-            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-6 text-gradient leading-tight"
-            motionProps={{
-              initial: { opacity: 0, scale: 0.8 },
-              animate: { opacity: 1, scale: 1 },
-              transition: { duration: 1, delay: 0.2 }
-            }}
-          />
+          <div className="overflow-hidden px-2">
+            <AncientHeading
+              text="Tark Shastra"
+              variant="h1"
+              accentMode="first-last"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold mb-6 text-gradient leading-tight break-words"
+              motionProps={{
+                initial: { opacity: 0, scale: 0.8 },
+                animate: { opacity: 1, scale: 1 },
+                transition: { duration: 1, delay: 0.2 }
+              }}
+            />
+          </div>
           
           <motion.p
             className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-4 px-4"

@@ -48,12 +48,14 @@ const TeamPage = () => {
               </svg>
               Back to Home
             </Link>
-            <AncientHeading
-              text="Team & Management"
-              variant="h1"
-              accentMode="first-last"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient mb-4 px-4"
-            />
+            <div className="px-2 sm:px-4 overflow-hidden">
+              <AncientHeading
+                text="Team & Management"
+                variant="h1"
+                accentMode="first-last"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gradient mb-4 break-words"
+              />
+            </div>
             <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
               Click on a category to view team members
             </p>

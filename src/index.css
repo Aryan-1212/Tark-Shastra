@@ -56,14 +56,32 @@
     vertical-align: baseline;
   }
   
-  /* Prevent text wrapping in headings with accent letters */
-  h1 {
-    white-space: nowrap;
+  /* Prevent text wrapping in headings with accent letters - only on larger screens */
+  @media (min-width: 769px) {
+    h1 {
+      white-space: nowrap;
+    }
   }
   
+  /* Responsive heading adjustments */
   @media (max-width: 768px) {
     h1 {
       white-space: normal;
+      word-break: break-word;
+      hyphens: auto;
+    }
+    
+    h2 {
+      word-break: break-word;
+      hyphens: auto;
+    }
+  }
+  
+  /* Ensure headings don't overflow on mobile */
+  @media (max-width: 640px) {
+    h1, h2 {
+      font-size: clamp(2rem, 8vw, 3rem);
+      line-height: 1.2;
     }
   }
   

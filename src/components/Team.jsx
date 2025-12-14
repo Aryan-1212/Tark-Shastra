@@ -76,17 +76,19 @@ const Team = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <AncientHeading
-            text="Team & Management"
-            variant="h2"
-            accentMode="first-last"
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-gradient mb-4"
-            motionProps={{
-              initial: { opacity: 0, y: 30 },
-              animate: isInView ? { opacity: 1, y: 0 } : {},
-              transition: { duration: 0.8 }
-            }}
-          />
+          <div className="px-2 overflow-hidden">
+            <AncientHeading
+              text="Team & Management"
+              variant="h2"
+              accentMode="first-last"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-4 break-words"
+              motionProps={{
+                initial: { opacity: 0, y: 30 },
+                animate: isInView ? { opacity: 1, y: 0 } : {},
+                transition: { duration: 0.8 }
+              }}
+            />
+          </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Meet the passionate people behind Tark Shastra
           </p>

@@ -118,7 +118,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20"
+            className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20 bg-charcoal/80 backdrop-blur-md"
           >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => {
