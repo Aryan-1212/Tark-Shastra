@@ -45,7 +45,7 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-charcoal/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-charcoal/95 backdrop-blur-md shadow-lg' : 'bg-charcoal/95'
       }`}
     >
       <div className="container mx-auto px-4 py-4">
@@ -120,7 +120,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20 bg-deep-black backdrop-blur-md"
+              className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20 bg-charcoal/95 backdrop-blur-md"
             >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => {
