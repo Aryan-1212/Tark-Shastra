@@ -48,7 +48,7 @@ const ParticleSystem = () => {
         this.tilt = (Math.random() - 0.5) * 0.35 // subtle angle
         this.speedY = Math.random() * 0.8 + 0.3  // Faster movement
         this.speedX = (Math.random() - 0.5) * 0.5
-        this.opacity = Math.random() * 0.6 + 0.3  // More visible
+        this.opacity = Math.random() * 0.7 + 0.4  // More visible sparks
         // Deep ember / fire colors, distinct from text gold
         const emberPalette = ['#CC6A2B', '#B1531B', '#E07A3F', '#8F3B20']
         this.color = emberPalette[Math.floor(Math.random() * emberPalette.length)]
@@ -66,8 +66,8 @@ const ParticleSystem = () => {
         this.speedX += (Math.random() - 0.5) * 0.08
 
         // Reset when particle goes above viewport or life ends
-        // Use larger threshold on mobile to ensure visibility
-        const resetThreshold = canvas.width < 768 ? -50 : -10
+        // Use larger threshold to keep more sparks visible longer
+        const resetThreshold = canvas.width < 768 ? -80 : -30
         if (this.life <= 0 || this.y < resetThreshold) {
           this.reset()
         }
@@ -107,11 +107,11 @@ const ParticleSystem = () => {
       }
     }
 
-    // Initialize particles - significantly increased for better visibility
+    // Initialize particles - significantly increased for more visible sparks
     const isMobile = window.innerWidth < 768
     const particleCount = isMobile 
-      ? Math.min(60, Math.floor((canvas.width * canvas.height) / 15000))  // Much more particles
-      : Math.min(100, Math.floor((canvas.width * canvas.height) / 10000))  // Much more particles
+      ? Math.min(150, Math.floor((canvas.width * canvas.height) / 8000))  // More sparks on mobile
+      : Math.min(250, Math.floor((canvas.width * canvas.height) / 6000))  // More sparks on desktop
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle())
     }
@@ -141,7 +141,7 @@ const ParticleSystem = () => {
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
       style={{ 
-        opacity: isMobile ? 0.8 : 0.6  // More visible on mobile
+        opacity: isMobile ? 0.95 : 0.75  // Increased visibility for sparks
       }}
     />
   )

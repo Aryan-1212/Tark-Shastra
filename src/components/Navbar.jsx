@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
@@ -113,13 +113,15 @@ const Navbar = () => {
         </div>
 
         {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20 bg-charcoal/80 backdrop-blur-md"
-          >
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden mt-4 pb-4 border-t border-ancient-gold/20 bg-deep-black backdrop-blur-md"
+            >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => {
                 const Component = item.isHash ? 'a' : Link
@@ -146,7 +148,8 @@ const Navbar = () => {
               </motion.button>
             </div>
           </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   )

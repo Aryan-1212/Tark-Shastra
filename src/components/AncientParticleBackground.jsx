@@ -513,9 +513,14 @@ const AncientParticleBackground = () => {
 
     const canvas = renderer.domElement
     canvas.style.position = 'fixed'
-    canvas.style.inset = '0'
+    canvas.style.top = '0'
+    canvas.style.left = '0'
+    canvas.style.width = '100%'
+    canvas.style.height = '100%'
     canvas.style.zIndex = '-1'
     canvas.style.pointerEvents = 'none'
+    canvas.style.margin = '0'
+    canvas.style.padding = '0'
 
     const scene = new THREE.Scene()
     scene.fog = new THREE.FogExp2(0x000000, 0.003)
@@ -560,8 +565,8 @@ const AncientParticleBackground = () => {
       makeSphere(particleCount),
       makeTemple(particleCount),
       makeHavanKund(particleCount),
-      makeDiya(particleCount),
       makeLotus(particleCount),
+      makeDiya(particleCount),
     ]
 
     geometry.attributes.position.array.set(shapeTargets[0])
@@ -572,7 +577,7 @@ const AncientParticleBackground = () => {
     const scrollInstance = ScrollTrigger.create({
       start: 'top top',
       end: 'bottom bottom',
-      scrub: true,
+      scrub: mobileOptimized ? 0.5 : true, // Smoother scrub on mobile
       onUpdate: (self) => {
         state.progress = self.progress
       },
@@ -596,6 +601,9 @@ const AncientParticleBackground = () => {
 
       camera.updateProjectionMatrix()
       renderer.setSize(innerWidth, innerHeight)
+      // Ensure canvas covers full viewport
+      canvas.style.width = '100%'
+      canvas.style.height = '100%'
     }
 
     window.addEventListener('resize', handleResize)
@@ -619,11 +627,12 @@ const AncientParticleBackground = () => {
       material.opacity = 0.9 + Math.sin(elapsed * 1.6) * 0.04
 
       // Scroll-driven "zoom pulse" as we transition between shapes
+      // Reduced motion on mobile for smoother scrolling
       const zoomPhase = Math.sin(localT * Math.PI)
       const baseZ = mobileOptimized ? 170 : 155
-      const zoomAmount = 18
+      const zoomAmount = mobileOptimized ? 12 : 18 // Less zoom on mobile
       camera.position.z = baseZ + zoomAmount * (1 - zoomPhase)
-      material.size = (mobileOptimized ? 2.2 : 1.8) + 0.5 * zoomPhase
+      material.size = (mobileOptimized ? 2.2 : 1.8) + (mobileOptimized ? 0.3 : 0.5) * zoomPhase
 
       for (let i = 0; i < particleCount; i += 1) {
         const i3 = i * 3
@@ -631,16 +640,18 @@ const AncientParticleBackground = () => {
         const baseY = lerp(current[i3 + 1], next[i3 + 1], localT)
         const baseZ = lerp(current[i3 + 2], next[i3 + 2], localT)
 
-        positions[i3] = baseX + Math.sin(elapsed * 0.9 + i * 0.0018) * 0.22
+        // Reduced motion amplitude on mobile for smoother scrolling
+        const motionScale = mobileOptimized ? 0.6 : 1
+        positions[i3] = baseX + Math.sin(elapsed * 0.9 + i * 0.0018) * 0.22 * motionScale
         positions[i3 + 1] =
-          baseY + Math.cos(elapsed * 0.8 + i * 0.0014) * 0.2
+          baseY + Math.cos(elapsed * 0.8 + i * 0.0014) * 0.2 * motionScale
         positions[i3 + 2] =
-          baseZ + Math.sin(elapsed * 0.7 + i * 0.0011) * 0.18
+          baseZ + Math.sin(elapsed * 0.7 + i * 0.0011) * 0.18 * motionScale
       }
 
       geometry.attributes.position.needsUpdate = true
-      // Only a very subtle horizontal drift; no vertical tilt
-      points.rotation.y += 0.0006
+      // Reduced rotation on mobile for smoother scrolling
+      points.rotation.y += mobileOptimized ? 0.0003 : 0.0006
       points.rotation.x = 0
 
       renderer.render(scene, camera)
@@ -664,7 +675,18 @@ const AncientParticleBackground = () => {
 
   return (
     <>
-      <div ref={containerRef} className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true" />
+      <div 
+        ref={containerRef} 
+        className="fixed inset-0 -z-10 pointer-events-none" 
+        style={{
+          width: '100%',
+          height: '100%',
+          margin: 0,
+          padding: 0,
+          overflow: 'hidden'
+        }}
+        aria-hidden="true" 
+      />
     </>
   )
 }

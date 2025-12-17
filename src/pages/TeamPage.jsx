@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { coreTeam, technicalTeam, managementTeam, volunteers } from '../data/teamData'
@@ -7,6 +7,7 @@ import ParticleSystem from '../components/ParticleSystem'
 
 const TeamPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null)
+  const categoryRefs = useRef({})
 
   const categories = [
     { id: 'core', name: 'Core Team', members: coreTeam, icon: '👑' },
@@ -19,9 +20,38 @@ const TeamPage = () => {
     if (selectedCategory === categoryId) {
       setSelectedCategory(null)
     } else {
+      // Set new category immediately
       setSelectedCategory(categoryId)
     }
   }
+
+  // Auto-scroll to selected category section whenever it changes
+  useEffect(() => {
+    if (selectedCategory) {
+      // Use multiple delays to ensure DOM is fully updated after AnimatePresence
+      const scrollTimeout1 = setTimeout(() => {
+        const ref = categoryRefs.current[selectedCategory]
+        if (ref) {
+          // Double-check with requestAnimationFrame
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              // Calculate offset to account for navbar
+              const navbarHeight = 80
+              const elementPosition = ref.getBoundingClientRect().top + window.pageYOffset
+              const offsetPosition = Math.max(0, elementPosition - navbarHeight)
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              })
+            })
+          })
+        }
+      }, 300) // Longer delay to ensure AnimatePresence has fully rendered
+
+      return () => clearTimeout(scrollTimeout1)
+    }
+  }, [selectedCategory])
 
   const selectedCategoryData = categories.find(cat => cat.id === selectedCategory)
 
@@ -91,10 +121,13 @@ const TeamPage = () => {
           </div>
 
           {/* Member Cards */}
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {selectedCategoryData && (
               <motion.div
                 key={selectedCategory}
+                ref={(el) => {
+                  if (el) categoryRefs.current[selectedCategory] = el
+                }}
                 layout
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
