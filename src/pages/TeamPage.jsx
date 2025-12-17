@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { coreTeam, technicalTeam, managementTeam, volunteers } from '../data/teamData'
-import ScrollBackground from '../components/ScrollBackground'
-import ParticleSystem from '../components/ParticleSystem'
 import AncientHeading from '../components/AncientHeading'
+import ParticleSystem from '../components/ParticleSystem'
 
 const TeamPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -28,7 +27,6 @@ const TeamPage = () => {
 
   return (
     <div className="relative min-h-screen">
-      <ScrollBackground />
       <ParticleSystem />
       <div className="relative z-10 min-h-screen">
         {/* Header */}

@@ -9,7 +9,7 @@ const TeamSection = ({ title, members, delay = 0 }) => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <div ref={ref} className="mb-16">
+    <div ref={ref} id="team" className="mb-16">
       <motion.h3
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}

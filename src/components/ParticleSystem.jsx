@@ -40,14 +40,18 @@ const ParticleSystem = () => {
         const isMobileDevice = canvas.width < 768
         const extraHeight = isMobileDevice ? canvas.height * 1.5 : canvas.height * 1.0  // Much more height
         this.y = canvas.height + Math.random() * extraHeight
-        // Make particles larger for better visibility
-        this.size = isMobileDevice 
-          ? Math.random() * 5 + 3  // 3-8px on mobile
-          : Math.random() * 4 + 2  // 2-6px on desktop
+        // Spark dimensions – thin, elongated streaks instead of round dots
+        this.length = isMobileDevice
+          ? Math.random() * 22 + 8   // 8–30px on mobile
+          : Math.random() * 18 + 6   // 6–24px on desktop
+        this.thickness = isMobileDevice ? 1.2 : 1
+        this.tilt = (Math.random() - 0.5) * 0.35 // subtle angle
         this.speedY = Math.random() * 0.8 + 0.3  // Faster movement
         this.speedX = (Math.random() - 0.5) * 0.5
         this.opacity = Math.random() * 0.6 + 0.3  // More visible
-        this.color = Math.random() > 0.5 ? '#D4AF37' : '#FF9933' // Gold or Saffron
+        // Deep ember / fire colors, distinct from text gold
+        const emberPalette = ['#CC6A2B', '#B1531B', '#E07A3F', '#8F3B20']
+        this.color = emberPalette[Math.floor(Math.random() * emberPalette.length)]
         this.life = 1
         this.decay = Math.random() * 0.002 + 0.001
       }
@@ -58,8 +62,8 @@ const ParticleSystem = () => {
         this.life -= this.decay
         this.opacity = this.life
 
-        // Add slight flicker
-        this.speedX += (Math.random() - 0.5) * 0.1
+        // Add slight horizontal dance
+        this.speedX += (Math.random() - 0.5) * 0.08
 
         // Reset when particle goes above viewport or life ends
         // Use larger threshold on mobile to ensure visibility
@@ -72,15 +76,33 @@ const ParticleSystem = () => {
       draw() {
         ctx.save()
         ctx.globalAlpha = this.opacity
-        ctx.fillStyle = this.color
+
+        // Draw a tapered, glowing streak to mimic real fire sparks
+        const gradient = ctx.createLinearGradient(
+          this.x,
+          this.y,
+          this.x,
+          this.y - this.length
+        )
+        gradient.addColorStop(0, 'rgba(0,0,0,0)')
+        gradient.addColorStop(0.2, `${this.color}55`)
+        gradient.addColorStop(0.6, `${this.color}AA`)
+        gradient.addColorStop(1, `${this.color}FF`)
+
+        ctx.translate(this.x, this.y)
+        ctx.rotate(-Math.PI / 2 + this.tilt)
+
+        ctx.shadowBlur = 14
+        ctx.shadowColor = this.color
+        ctx.fillStyle = gradient
         ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.moveTo(0, 0)
+        ctx.lineTo(this.length, -this.thickness * 0.4)
+        ctx.lineTo(this.length * 0.4, this.thickness * 0.7)
+        ctx.lineTo(0, this.thickness)
+        ctx.closePath()
         ctx.fill()
 
-        // Add glow effect
-        ctx.shadowBlur = 10
-        ctx.shadowColor = this.color
-        ctx.fill()
         ctx.restore()
       }
     }

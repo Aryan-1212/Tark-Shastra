@@ -34,7 +34,7 @@ const Navbar = () => {
     { name: 'About', href: '/#about', isHash: true },
     { name: 'Tracks', href: '/#tracks', isHash: true },
     { name: 'Schedule', href: '/#schedule', isHash: true },
-    { name: 'Team', href: '/team', isHash: false },
+    { name: 'Team', href: '/#team', isHash: true },
     { name: 'FAQ', href: '/#faq', isHash: true },
   ]
 

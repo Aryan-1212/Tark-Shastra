@@ -7,7 +7,6 @@ import Schedule from '../components/Schedule'
 import Sponsors from '../components/Sponsors'
 import FAQ from '../components/FAQ'
 import Footer from '../components/Footer'
-import ScrollBackground from '../components/ScrollBackground'
 import ParticleSystem from '../components/ParticleSystem'
 
 // Lazy load heavy components
@@ -16,7 +15,6 @@ const TeamPreview = lazy(() => import('../components/TeamPreview'))
 function Home() {
   return (
     <div className="relative min-h-screen">
-      <ScrollBackground />
       <ParticleSystem />
       <div className="relative z-10">
         <Hero />
